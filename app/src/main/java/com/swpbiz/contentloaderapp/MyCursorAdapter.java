@@ -23,5 +23,6 @@ public class MyCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 //        TextView tv
+//        cursor.getColumnCount();
     }
 }

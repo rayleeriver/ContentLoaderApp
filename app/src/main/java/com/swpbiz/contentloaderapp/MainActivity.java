@@ -27,6 +27,7 @@ public class MainActivity extends ActionBarActivity {
         getSupportLoaderManager().initLoader(CONTACT_LOADER_ID, new Bundle(), contactsLoader);
     }
 
+    // async load data
     private LoaderManager.LoaderCallbacks<Cursor> contactsLoader =
             new LoaderManager.LoaderCallbacks<Cursor>() {
                 @Override
@@ -36,6 +37,8 @@ public class MainActivity extends ActionBarActivity {
                             ContactsContract.Contacts.DISPLAY_NAME,
                             ContactsContract.Contacts.PHOTO_URI
                     };
+
+                    // sync load data
                     CursorLoader cursorLoader = new CursorLoader(MainActivity.this,
                             ContactsContract.Contacts.CONTENT_URI,
                             projectionFields,
