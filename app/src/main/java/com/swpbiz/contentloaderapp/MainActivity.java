@@ -1,5 +1,6 @@
 package com.swpbiz.contentloaderapp;
 
+import android.accounts.AccountManager;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.support.v4.app.LoaderManager;
@@ -7,15 +8,21 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 
 public class MainActivity extends ActionBarActivity {
     private static final int CONTACT_LOADER_ID = 9999;
-    SimpleCursorAdapter adapter;
+//    SimpleCursorAdapter adapter;
+    MyCursorAdapter adapter;
+    Button btnDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +32,14 @@ public class MainActivity extends ActionBarActivity {
 
         // send async request to external apps
         getSupportLoaderManager().initLoader(CONTACT_LOADER_ID, new Bundle(), contactsLoader);
+
+        btnDone = (Button) findViewById(R.id.btnDone);
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.getNamesSelected();
+            }
+        });
     }
 
     // async load data
@@ -68,13 +83,15 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void setupCursorAdapter() {
-        String[] uiBindFrom = {ContactsContract.Contacts.DISPLAY_NAME, ContactsContract.Contacts.PHOTO_URI};
-        int[] uiBindTo = {R.id.tvName, R.id.ivImage};
-        adapter = new SimpleCursorAdapter(
-                this, R.layout.item_contact,
-                null, uiBindFrom, uiBindTo,
-                0
-        );
+//        String[] uiBindFrom = {ContactsContract.Contacts.DISPLAY_NAME, ContactsContract.Contacts.PHOTO_URI};
+//        int[] uiBindTo = {R.id.tvName, R.id.ivImage};
+//        adapter = new SimpleCursorAdapter(
+//                this, R.layout.item_contact,
+//                null, uiBindFrom, uiBindTo,
+//                0
+//        );
+
+        adapter = new MyCursorAdapter(this, null);
 
         ListView lvContacts = (ListView) findViewById(R.id.lvContacts);
         lvContacts.setAdapter(adapter);
